@@ -1,0 +1,64 @@
+<html>
+<head>
+
+<?php
+
+$fileWrite = '';    
+$myFile = "testFile.txt";
+if(isset($_POST['fileWrite']) && !empty($_POST['fileWrite'])) {
+$fileWrite = $_POST['fileWrite'].PHP_EOL;
+}
+if($fileWrite) {
+$fh = fopen($myFile, 'a') or die("can't open file"); //Make sure you have permission
+fwrite($fh, $fileWrite);
+fclose($fh);
+}
+//https://stackoverflow.com/questions/43704572/html-form-save-to-server-side-text-file
+
+?>
+
+</head>
+
+<body>
+<form id="some" name="someName" method="post">
+<input type="text" id="some1" class="someClass" value="" name="fileWrite"/>
+<input type="submit" value="submit" class="submitClass"/>
+</form>
+</body>
+
+<!-- 
+<?php
+$fh = fopen("testFile.txt", 'r') or die("File does not exist or you lack permission to open it");
+$line = fgets($fh);
+echo $line; fclose($fh);
+
+//https://www.guru99.com/php-file-processing.html -->
+?>
+ -->
+ 
+<?php
+/*
+$fh = fopen("testFile.txt", 'r') or die("File does not exist or you lack permission to open it");
+$file = file("filename.txt");
+for ($i = count($file); $i < count($file); $i++) {
+  echo $fh[$i] . "\n"; 
+  }
+  fclose($fh);
+  */
+$file = file("testFile.txt"); 
+$file = array_slice(file("testFile.txt"), 0 , count($file) );
+//print_r($file); 
+echo "<pre>".implode("\n",$file)."</pre>"; //https://stackoverflow.com/questions/21584164/php-add-a-newline-with-implode
+//https://www.w3schools.com/php/func_string_implode.asp
+  
+//https://stackoverflow.com/questions/2961618/how-to-read-only-5-last-line-of-the-text-file-in-php
+?>
+
+
+
+
+
+
+
+
+</html>
